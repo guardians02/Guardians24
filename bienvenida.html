@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bienvenida - Guardians</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Bangers', cursive;
+      background: #000;
+      color: #fff;
+      overflow: hidden;
+      opacity: 0;
+      transition: opacity 1s ease-in;
+    }
+
+    body.loaded {
+      opacity: 1;
+    }
+
+    .navbar {
+      background-color: #ff0000;
+      padding: 15px 0;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+
+    .navbar a {
+      font-family: 'Bangers', cursive;
+      color: #fff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 1.5em;
+      transition: color 0.3s ease;
+    }
+
+    .navbar a:hover {
+      color: #ffcc00;
+    }
+
+    .panel {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      width: 90%;
+      max-width: 800px;
+      background: linear-gradient(135deg, #111, #222);
+      border: 8px solid #ff0000;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 0 30px #ffcc00;
+      text-align: center;
+      animation: zoomIn 2s ease forwards;
+    }
+
+    h1 {
+      font-size: 3.5em;
+      color: #ffcc00;
+      text-shadow: 2px 2px #ff0000;
+      margin-bottom: 20px;
+      animation: glow 2s infinite alternate;
+    }
+
+    p {
+      font-size: 1.5em;
+      color: #ccc;
+      margin-bottom: 30px;
+    }
+
+    .btn {
+      background-color: #ff0000;
+      color: #fff;
+      padding: 15px 30px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ffcc00;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background-color: #cc0000;
+    }
+
+    @keyframes zoomIn {
+      0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #ffcc00, 0 0 20px #ff0000;
+      }
+      to {
+        text-shadow: 0 0 20px #ff0000, 0 0 30px #ffcc00;
+      }
+    }
+
+    .bg-stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://www.transparenttextures.com/patterns/stardust.png');
+      animation: moveStars 60s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes moveStars {
+      from { background-position: 0 0; }
+      to { background-position: 1000px 1000px; }
+    }
+
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      color: #ffcc00;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      font-family: 'Bangers', cursive;
+    }
+
+    .spinner {
+      border: 8px solid #222;
+      border-top: 8px solid #ffcc00;
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      animation: spin 1.5s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loader">
+    <div class="spinner"></div>
+    <p>Cargando el universo Guardians...</p>
+  </div>
+
+  <div class="bg-stars"></div>
+
+  <nav class="navbar">
+    <a href="index.html">Inicio</a>
+    <a href="historias.html">Historias</a>
+    <a href="personajes.html">Personajes</a>
+    <a href="universo.html">Universo</a>
+    <a href="galeria.html">Galería</a>
+    <a href="cronologia.html">Cronología</a>
+    <a href="dialogos.html">Diálogos</a>
+  </nav>
+
+  <div class="panel">
+    <h1>El universo necesita un Guardián...</h1>
+    <p>Cuando la Brecha de los Cielos se abrió, todo cambió.<br>¿Estás listo para descubrir tu destino?</p>
+    <a href="index.html" class="btn">Entrar al universo</a>
+  </div>
+
+  <audio id="bg-music" autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-epic.mp3" type="audio/mpeg">
+  </audio>
+
+  <audio id="ambient-sound" autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_4b3e1f3b8d.mp3" type="audio/mpeg">
+  </audio>
+
+  <audio id="click-sound">
+    <source src="https://www.soundjay.com/buttons/sounds/button-16.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    window.addEventListener("load", () => {
+      document.getElementById("loader").style.display = "none";
+      document.body.classList.add("loaded");
+    });
+
+    const hour = new Date().getHours();
+    if (hour >= 20 || hour < 6) {
+      document.body.style.background = "#000";
+      document.body.style.color = "#ccc";
+    }
+
+    const clickSound = document.getElementById("click-sound");
+    document.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        clickSound.currentTime = 0;
+        clickSound.play();
+      });
+    });
+  </script>
+
+</body>
+</html>

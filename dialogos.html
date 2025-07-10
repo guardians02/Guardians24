@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Diálogos - Guardians</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Bangers', cursive;
+      background: #0a0a0a;
+      color: #fff;
+      text-align: center;
+      padding: 40px 20px;
+      opacity: 0;
+      transition: opacity 1s ease-in;
+    }
+
+    body.loaded {
+      opacity: 1;
+    }
+
+    .navbar {
+      background-color: #ff0000;
+      padding: 15px 0;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+
+    .navbar a {
+      font-family: 'Bangers', cursive;
+      color: #fff;
+      text-decoration: none;
+      margin: 0 15px;
+      font-size: 1.5em;
+      transition: color 0.3s ease;
+    }
+
+    .navbar a:hover {
+      color: #ffcc00;
+    }
+
+    h1 {
+      font-size: 4em;
+      color: #00ffcc;
+      text-shadow: 2px 2px #ff0000;
+      animation: glow 2s infinite alternate;
+    }
+
+    .dialogue {
+      background: #1a1a1a;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 700px;
+      box-shadow: 0 0 10px #00ffcc;
+      text-align: left;
+    }
+
+    .character {
+      color: #ffcc00;
+      font-size: 1.3em;
+    }
+
+    .line {
+      color: #ccc;
+      margin-bottom: 10px;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 0 0 10px #00ffcc, 0 0 20px #ff0000;
+      }
+      to {
+        text-shadow: 0 0 20px #ff0000, 0 0 30px #00ffcc;
+      }
+    }
+
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      color: #ffcc00;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      font-family: 'Bangers', cursive;
+    }
+
+    .spinner {
+      border: 8px solid #222;
+      border-top: 8px solid #ffcc00;
+      border-radius: 50%;
+      width: 80px;
+      height: 80px;
+      animation: spin 1.5s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loader">
+    <div class="spinner"></div>
+    <p>Cargando el universo Guardians...</p>
+  </div>
+
+  <nav class="navbar">
+    <a href="index.html">Inicio</a>
+    <a href="historias.html">Historias</a>
+    <a href="personajes.html">Personajes</a>
+    <a href="universo.html">Universo</a>
+    <a href="galeria.html">Galería</a>
+    <a href="cronologia.html">Cronología</a>
+    <a href="dialogos.html">Diálogos</a>
+  </nav>
+
+  <h1>Diálogos Guardians</h1>
+
+  <div class="dialogue">
+    <div class="character">Jesuanar:</div>
+    <div class="line">"El silencio no es ausencia... es preparación."</div>
+
+    <div class="character">Lumina:</div>
+    <div class="line">"Entonces prepárate, porque la luz está por estallar."</div>
+
+    <div class="character">Jesuanar:</div>
+    <div class="line">"Que así sea. Pero recuerda: incluso la luz proyecta sombra."</div>
+  </div>
+
+  <audio id="bg-music" autoplay loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-epic.mp3" type="audio/mpeg">
+  </audio>
+
+  <audio id="ambient-sound" autoplay loop>
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_4b3e1f3b8d.mp3" type="audio/mpeg">
+  </audio>
+
+  <audio id="click-sound">
+    <source src="https://www.soundjay.com/buttons/sounds/button-16.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    window.addEventListener("load", () => {
+      document.getElementById("loader").style.display = "none";
+      document.body.classList.add("loaded");
+    });
+
+    const hour = new Date().getHours();
+    if (hour >= 20 || hour < 6) {
+      document.body.style.background = "#000";
+      document.body.style.color = "#ccc";
+    }
+
+    const clickSound = document.getElementById("click-sound");
+    document.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        clickSound.currentTime = 0;
+        clickSound.play();
+      });
+    });
+  </script>
+
+</body>
+</html>
